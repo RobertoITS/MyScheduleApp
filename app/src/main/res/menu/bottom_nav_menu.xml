@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/mytask"
+        android:title="My Task"
+        android:icon="@drawable/bottom_nav_icon_my_task"/>
+    <item android:id="@+id/newtask"
+        android:title="New Task"
+        android:icon="@drawable/bottom_nav_icon_add_task"/>
+    <item android:id="@+id/donetask"
+        android:title="Done Task"
+        android:icon="@drawable/bottom_nav_icon_done_task"/>
+</menu>
