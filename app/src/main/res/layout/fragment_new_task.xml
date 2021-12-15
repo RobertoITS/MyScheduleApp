@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NewTaskFragment"
+    tools:context=".fragments.newtask.NewTaskFragment"
     android:background="@drawable/background_new_task">
 
-</FrameLayout>
+    <FrameLayout
+        android:id="@+id/calendarFrag"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+
+</LinearLayout>

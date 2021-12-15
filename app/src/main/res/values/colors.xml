@@ -13,4 +13,5 @@
     <color name="newTask">#1194AA</color>
     <color name="doneTask">#5B37B7</color>
     <color name="others">#E6A919</color>
+    <color name="gray">#ACA8A7</color>
 </resources>

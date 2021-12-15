@@ -1,23 +1,21 @@
-package com.example.myscheduleapp
+package com.example.myscheduleapp.mainactivity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
-import com.example.myscheduleapp.databinding.ActivityMain2Binding
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.ismaeldivita.chipnavigation.ChipNavigationBar
+import com.example.myscheduleapp.R
+import com.example.myscheduleapp.databinding.ActivityMainBinding
+import com.example.myscheduleapp.fragments.donetask.DoneTaskFragment
+import com.example.myscheduleapp.fragments.mytask.MyTaskFragment
+import com.example.myscheduleapp.fragments.newtask.NewTaskFragment
 
-class MainActivity2 : AppCompatActivity() {
-    private lateinit var binding: ActivityMain2Binding
+class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMain2Binding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
 
         binding.bottomNav.setItemSelected(R.id.mytask)
         openFragment(MyTaskFragment())

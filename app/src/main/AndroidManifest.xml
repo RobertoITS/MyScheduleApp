@@ -10,10 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyScheduleApp">
         <activity
-            android:name=".MainActivity2"
+            android:name=".mainactivity.MainActivity"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".splashscreen.SplashScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
