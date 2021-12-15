@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cnb_unselectedColor="#666666">
     <item android:id="@+id/mytask"
         android:title="My Task"
-        android:icon="@drawable/bottom_nav_icon_my_task"/>
+        android:icon="@drawable/bottom_nav_icon_my_task"
+        app:cnb_iconColor="@color/myTask"/>
     <item android:id="@+id/newtask"
         android:title="New Task"
-        android:icon="@drawable/bottom_nav_icon_add_task"/>
+        android:icon="@drawable/bottom_nav_icon_add_task"
+        app:cnb_iconColor="@color/newTask"/>
     <item android:id="@+id/donetask"
         android:title="Done Task"
-        android:icon="@drawable/bottom_nav_icon_done_task"/>
+        android:icon="@drawable/bottom_nav_icon_done_task"
+        app:cnb_iconColor="@color/doneTask"/>
 </menu>

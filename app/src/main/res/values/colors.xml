@@ -9,4 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="turquoise">#5dc1b9</color>
     <color name="dark_turquoise">#26C2DD</color>
+    <color name="myTask">#C9379D</color>
+    <color name="newTask">#1194AA</color>
+    <color name="doneTask">#5B37B7</color>
+    <color name="others">#E6A919</color>
 </resources>
