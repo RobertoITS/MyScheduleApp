@@ -3,23 +3,23 @@ package com.example.myscheduleapp.database.dao
 import androidx.room.*
 import com.example.myscheduleapp.database.data.NewEventData
 
-//Se encarga de las consultas
+//Handles queries
 @Dao
 interface NewEventDao {
 
-    //Todos
+    //All data from database
     @Query("SELECT * FROM NewEventData")
-    fun getAll(): List<NewEventData>
+    fun getAllUnDoneEvents(): List<NewEventData>
 
-    //Inserta
+    //Insert new entry
     @Insert
     fun insert(newEventData: ArrayList<NewEventData>)
 
-    //Actualiza
+    //Update a entry
     @Update
     fun update(newEventData: NewEventData)
 
-    //Borra
+    //Delete a entry
     @Delete
     fun delete(newEventData: NewEventData)
 }

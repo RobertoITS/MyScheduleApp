@@ -8,4 +8,6 @@
     <string name="my_schedule">Mi Agenda</string>
     <string name="back"><![CDATA[<-]]></string>
     <string name="forward"><![CDATA[->]]></string>
+    <string name="back_event">Volver</string>
+    <string name="delete_entry">Borrar entrada</string>
 </resources>

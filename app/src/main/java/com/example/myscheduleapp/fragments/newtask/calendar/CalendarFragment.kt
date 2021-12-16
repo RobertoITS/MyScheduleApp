@@ -16,63 +16,51 @@ import com.example.myscheduleapp.R
 import com.example.myscheduleapp.Utils.daysInMonthArray
 import com.example.myscheduleapp.Utils.monthYearFromDate
 import com.example.myscheduleapp.Utils.selectedDate
+import com.example.myscheduleapp.databinding.FragmentCalendarBinding
 import com.example.myscheduleapp.fragments.newtask.calendar.adapter.CalendarAdapter
 import com.example.myscheduleapp.fragments.newtask.weekcalendar.WeekFragment
 import java.time.LocalDate
 
 class CalendarFragment : Fragment(), CalendarAdapter.OnItemListener {
 
-    private lateinit var monthYearText: TextView
-    private lateinit var calendarRecycler: RecyclerView
-    private lateinit var previousMonth: Button
-    private lateinit var nextMonth: Button
-    private lateinit var weekAction: Button
+    private var _binding: FragmentCalendarBinding? = null
+    private val binding get() = _binding!!
 
     @SuppressLint("NewApi")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_calendar, container, false)
-
-        monthYearText = view.findViewById(R.id.month)
-
-        calendarRecycler = view.findViewById(R.id.calendarRecycler)
-
-        previousMonth = view.findViewById(R.id.previousMonth)
-
-        nextMonth = view.findViewById(R.id.nextMonth)
-
-        weekAction = view.findViewById(R.id.weekAction)
+    ): View {
+        _binding = FragmentCalendarBinding.inflate(inflater, container, false)
 
         selectedDate = LocalDate.now()
 
         setMonthView()
 
-        previousMonth.setOnClickListener {
+        binding.previousMonth.setOnClickListener {
             previousMonthAction()
         }
 
-        nextMonth.setOnClickListener {
+        binding.nextMonth.setOnClickListener {
             nextMonthAction()
         }
 
-        weekAction.setOnClickListener {
+        binding.weekAction.setOnClickListener {
             weeklyAction()
         }
 
-        return view
+        return binding.root
 
         }
 
         @RequiresApi(Build.VERSION_CODES.O)
         private fun setMonthView() {
-            monthYearText.text = monthYearFromDate(selectedDate!!)
+            binding.month.text = monthYearFromDate(selectedDate!!)
             val daysInMonth = daysInMonthArray(selectedDate!!)
             val calendarAdapter = CalendarAdapter(daysInMonth, this)
             val layoutManager: RecyclerView.LayoutManager = GridLayoutManager(context, 7)
-            calendarRecycler.layoutManager = layoutManager
-            calendarRecycler.adapter = calendarAdapter
+            binding.calendarRecycler.layoutManager = layoutManager
+            binding.calendarRecycler.adapter = calendarAdapter
         }
 
         @RequiresApi(Build.VERSION_CODES.O)

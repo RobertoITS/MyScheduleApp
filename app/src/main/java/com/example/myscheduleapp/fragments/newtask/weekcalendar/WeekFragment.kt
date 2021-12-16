@@ -9,40 +9,31 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
+import com.example.myscheduleapp.Communicator
+import com.example.myscheduleapp.R
 import com.example.myscheduleapp.Utils.daysInWeekArray
 import com.example.myscheduleapp.Utils.monthYearFromDate
 import com.example.myscheduleapp.Utils.selectedDate
-import com.example.myscheduleapp.database.AppDataBase
-import com.example.myscheduleapp.database.data.NewEventData
 import com.example.myscheduleapp.databinding.FragmentWeekBinding
 import com.example.myscheduleapp.fragments.newtask.calendar.adapter.CalendarAdapter
-import com.example.myscheduleapp.fragments.newtask.weekcalendar.adapter.EventAdapter
+import com.example.myscheduleapp.fragments.newtask.weekcalendar.newevent.EventFragment
 import java.time.LocalDate
 
-class WeekFragment : Fragment(), CalendarAdapter.OnItemListener {
+class WeekFragment : Fragment(), CalendarAdapter.OnItemListener, Communicator {
 
     private var _binding: FragmentWeekBinding? = null
     private val binding get() = _binding!!
-    private lateinit var newEvent: ArrayList<NewEventData>
 
     @SuppressLint("NewApi")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentWeekBinding.inflate(inflater, container, false)
 
-        //The recycler view of the saved events and his layout manager
-        val llm = LinearLayoutManager(context)
-        llm.orientation = LinearLayoutManager.VERTICAL
-        binding.eventList.layoutManager = llm
-
         setWeekView()
-        setEventAdapter()
 
         //Button previous week and his functions
         binding.previousWeekBtn.setOnClickListener {
@@ -58,7 +49,6 @@ class WeekFragment : Fragment(), CalendarAdapter.OnItemListener {
         }
 
         return binding.root
-
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -84,7 +74,29 @@ class WeekFragment : Fragment(), CalendarAdapter.OnItemListener {
     }
 
     private fun newEventAction() {
-//        startActivity(Intent(this, EventActivity::class.java))
+        val transition = fragmentManager?.beginTransaction()
+        val frag = fragmentManager?.findFragmentById(R.id.newEventFrag)
+        transition
+            ?.setCustomAnimations(
+                R.anim.frag_down_to_up,
+                R.anim.frag_up_to_down
+            )
+        when (binding.newEventBtn.text) {
+            getString(R.string.new_task) -> {
+                transition
+                    ?.add(R.id.newEventFrag, EventFragment())
+                    ?.commit()
+                binding.newEventBtn.text = getString(R.string.back_event)
+            }
+            getString(R.string.back_event) ->{
+                if (frag != null) {
+                    transition
+                        ?.remove(frag)
+                        ?.commit()
+                }
+                binding.newEventBtn.text = getString(R.string.new_task)
+            }
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -93,23 +105,10 @@ class WeekFragment : Fragment(), CalendarAdapter.OnItemListener {
         setWeekView()
     }
 
-    override fun onResume() {
-        super.onResume()
-        setEventAdapter()
+    override fun stateChange(boolean: Boolean) {
+        if (boolean) binding.newEventBtn.text = getString(R.string.new_task)
     }
 
-    //This adapter bring the info form the data base
-    private fun setEventAdapter() {
-        //We instantiate the data base reference
-        val db: AppDataBase = Room.databaseBuilder(
-            requireContext(),
-            AppDataBase::class.java,
-            "NewEventData")
-            .allowMainThreadQueries()
-            .build()
-        newEvent = arrayListOf()
-        //Functions to bring all the data from the data base
-        newEvent = db.newEventDao().getAll() as ArrayList<NewEventData>
-        binding.eventList.adapter = EventAdapter(newEvent, requireContext())
+    override fun itemRemoved(item: Int) {
     }
 }

@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".fragments.newtask.weekcalendar.newevent.EventFragment">
+    tools:context=".fragments.newtask.weekcalendar.newevent.EventFragment"
+    android:background="@drawable/my_shape">
 
     <TextView
         android:layout_width="wrap_content"
