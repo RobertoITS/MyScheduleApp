@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.room.Room
 import com.example.myscheduleapp.R
 import com.example.myscheduleapp.Utils.formattedDate
@@ -22,6 +23,9 @@ class EventFragment : Fragment() {
     private val binding get() = _binding!!
     private var id: Int? = null
 
+    //Instaciamos un boton
+    private var btn: Button? = null
+
     private lateinit var time: LocalTime
 
     var eventsList: ArrayList<NewEventData> = ArrayList()
@@ -34,6 +38,10 @@ class EventFragment : Fragment() {
         _binding = FragmentEventBinding.inflate(inflater, container, false)
 
         time = LocalTime.now()
+
+        //Le asignamos el id pero con la base desde la actividad:
+        //El boton pertenece a otro layout
+        btn = activity?.findViewById(R.id.newEventBtn)
 
         binding.eventDate.text = ("Date: " + formattedDate(selectedDate!!))
 
@@ -48,6 +56,7 @@ class EventFragment : Fragment() {
 
     //Esta lista se guarda en la bd
     private fun saveEventAction() {
+        btn?.text = getString(R.string.new_task)
         val db: AppDataBase = Room.databaseBuilder(
             requireContext(),
             AppDataBase::class.java,

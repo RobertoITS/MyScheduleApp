@@ -1,6 +1,7 @@
 package com.example.myscheduleapp.fragments.newtask.weekcalendar
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,7 +11,6 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myscheduleapp.Communicator
 import com.example.myscheduleapp.R
 import com.example.myscheduleapp.Utils.daysInWeekArray
 import com.example.myscheduleapp.Utils.monthYearFromDate
@@ -19,18 +19,24 @@ import com.example.myscheduleapp.databinding.FragmentWeekBinding
 import com.example.myscheduleapp.fragments.newtask.calendar.adapter.CalendarAdapter
 import com.example.myscheduleapp.fragments.newtask.weekcalendar.newevent.EventFragment
 import java.time.LocalDate
+import android.widget.Button
 
-class WeekFragment : Fragment(), CalendarAdapter.OnItemListener, Communicator {
+class WeekFragment : Fragment(), CalendarAdapter.OnItemListener {
 
     private var _binding: FragmentWeekBinding? = null
     private val binding get() = _binding!!
 
+    private var btn: Button? = null
+
     @SuppressLint("NewApi")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         // Inflate the layout for this fragment
+        val view = inflater.inflate(R.layout.fragment_week, container, false)
+        btn = view.findViewById(R.id.newEventBtn)
+
         _binding = FragmentWeekBinding.inflate(inflater, container, false)
 
         setWeekView()
@@ -103,12 +109,5 @@ class WeekFragment : Fragment(), CalendarAdapter.OnItemListener, Communicator {
     override fun onItemClick(position: Int, date: LocalDate) {
         selectedDate = date
         setWeekView()
-    }
-
-    override fun stateChange(boolean: Boolean) {
-        if (boolean) binding.newEventBtn.text = getString(R.string.new_task)
-    }
-
-    override fun itemRemoved(item: Int) {
     }
 }

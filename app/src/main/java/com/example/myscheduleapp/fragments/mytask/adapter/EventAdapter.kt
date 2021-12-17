@@ -21,12 +21,17 @@ class EventAdapter(
     var app: Context
     ): RecyclerView.Adapter<EventAdapter.EventViewHolder>(){
 
+//    private lateinit var communicator: DeleteEntry
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
     ): EventViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.event_cell, parent, false)
+
+//        communicator = parent.context as DeleteEntry
+
         return EventViewHolder(view)
     }
 
@@ -53,8 +58,8 @@ class EventAdapter(
                 .allowMainThreadQueries()
                 .build()
             db.newEventDao().delete(currentEvent)
+            newEventList.removeAt(position)
             notifyItemRemoved(position)
-            notifyDataSetChanged()
         }
     }
 
