@@ -1,19 +1,22 @@
 package com.example.myscheduleapp.fragments.mytask
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
+import com.example.myscheduleapp.CallBackItemTouch
+import com.example.myscheduleapp.MyItemTouchHelperCallback
 import com.example.myscheduleapp.database.AppDataBase
 import com.example.myscheduleapp.database.data.NewEventData
 import com.example.myscheduleapp.databinding.FragmentMyTaskBinding
 import com.example.myscheduleapp.fragments.mytask.adapter.EventAdapter
 
-class MyTaskFragment : Fragment() {
+class MyTaskFragment : Fragment(), CallBackItemTouch {
 
     private var _binding: FragmentMyTaskBinding? = null
     private val binding get() = _binding!!
@@ -48,5 +51,17 @@ class MyTaskFragment : Fragment() {
         //Functions to bring all the data from the data base
         newEvent = db.newEventDao().getAllUnDoneEvents() as ArrayList<NewEventData>
         binding.eventList.adapter = EventAdapter(newEvent, requireContext())
+        val callback: ItemTouchHelper.Callback = MyItemTouchHelperCallback(this)
+        val touchHelper = ItemTouchHelper(callback)
+        touchHelper.attachToRecyclerView(binding.eventList)
+    }
+
+    override fun itemTouchOnMode(oldPosition: Int, newPosition: Int) {
+        newEvent.add(newPosition, newEvent.removeAt(oldPosition))
+
+    }
+
+    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, position: Int) {
+
     }
 }

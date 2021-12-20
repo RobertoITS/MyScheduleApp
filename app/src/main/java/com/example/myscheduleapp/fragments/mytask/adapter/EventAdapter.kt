@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
@@ -21,16 +22,12 @@ class EventAdapter(
     var app: Context
     ): RecyclerView.Adapter<EventAdapter.EventViewHolder>(){
 
-//    private lateinit var communicator: DeleteEntry
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
     ): EventViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.event_cell, parent, false)
-
-//        communicator = parent.context as DeleteEntry
 
         return EventViewHolder(view)
     }
@@ -72,7 +69,17 @@ class EventAdapter(
         val dateCell: TextView = itemView.findViewById(R.id.dateCell)
         val hourCell: TextView = itemView.findViewById(R.id.hourCell)
         val hiddenContainer: LinearLayout = itemView.findViewById(R.id.hiddenContainer)
-        val visibilityOnOff: LinearLayout = itemView.findViewById(R.id.visibilityOn_Off)
-        val delete: FloatingActionButton = itemView.findViewById(R.id.delete)
+        val visibilityOnOff: LinearLayout = itemView.findViewById(R.id.event_card)
+        val delete: RelativeLayout = itemView.findViewById(R.id.delete_background)
+    }
+
+    fun removeItems(position: Int){
+        newEventList.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
+    fun restoreItem(item: NewEventData, position: Int){
+        newEventList.add(position, item)
+        notifyItemInserted(position)
     }
 }
