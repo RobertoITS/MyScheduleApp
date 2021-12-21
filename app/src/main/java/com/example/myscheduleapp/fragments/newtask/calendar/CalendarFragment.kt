@@ -92,7 +92,7 @@ class CalendarFragment : Fragment(), CalendarAdapter.OnItemListener {
                 R.anim.fade_in,
                 R.anim.fade_out
             )
-                ?.replace(R.id.frag, WeekFragment())
+                ?.replace(R.id.calendarFrag, WeekFragment())
                 ?.commit()
         }
 

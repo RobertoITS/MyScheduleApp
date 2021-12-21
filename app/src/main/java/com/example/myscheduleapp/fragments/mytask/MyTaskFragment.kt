@@ -1,6 +1,5 @@
 package com.example.myscheduleapp.fragments.mytask
 
-import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,15 +9,12 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
-import com.example.myscheduleapp.CallBackItemTouch
-import com.example.myscheduleapp.MyItemTouchHelperCallback
+import com.example.myscheduleapp.SwipeGesture
 import com.example.myscheduleapp.database.AppDataBase
 import com.example.myscheduleapp.database.data.NewEventData
 import com.example.myscheduleapp.databinding.FragmentMyTaskBinding
 import com.example.myscheduleapp.fragments.mytask.adapter.EventAdapter
-import com.google.android.material.snackbar.Snackbar
-
-class MyTaskFragment : Fragment(), CallBackItemTouch {
+class MyTaskFragment : Fragment() {
 
     private var _binding: FragmentMyTaskBinding? = null
     private val binding get() = _binding!!
@@ -54,25 +50,28 @@ class MyTaskFragment : Fragment(), CallBackItemTouch {
         newEvent = db.newEventDao().getAllUnDoneEvents() as ArrayList<NewEventData>
         eventAdapter = EventAdapter(newEvent, requireContext())
         binding.eventList.adapter = eventAdapter
-        val callback: ItemTouchHelper.Callback = MyItemTouchHelperCallback(this)
-        val touchHelper = ItemTouchHelper(callback)
-        touchHelper.attachToRecyclerView(binding.eventList)
-    }
 
-    override fun itemTouchOnMode(oldPosition: Int, newPosition: Int) {
-    }
+        val swipeGesture = object : SwipeGesture (requireContext()) {
 
-    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, position: Int) {
-        val name = newEvent[viewHolder.adapterPosition].name
-        val event: NewEventData = newEvent[viewHolder.adapterPosition]
-        val index: Int = viewHolder.adapterPosition
-        eventAdapter.removeItems(viewHolder.adapterPosition)
-        eventAdapter.notifyItemRemoved(viewHolder.adapterPosition)
-        val snack = Snackbar.make(binding.snack, "$name => ELIMINADO", Snackbar.LENGTH_LONG)
-        snack.setAction("Cancelar/Deshacer") {
-            eventAdapter.restoreItem(event, index)
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+
+                val item: NewEventData = newEvent[viewHolder.absoluteAdapterPosition]
+                val index: Int = viewHolder.absoluteAdapterPosition
+                when (direction){
+                    ItemTouchHelper.LEFT -> {
+                        eventAdapter.removeItems(viewHolder.absoluteAdapterPosition)
+                        }
+
+                    ItemTouchHelper.RIGHT -> {
+                        eventAdapter.restoreItem(item, index)
+                    }
+                }
+
+            }
+
         }
-        snack.setActionTextColor(Color.GREEN)
-        snack.show()
+
+        val touchHelper = ItemTouchHelper(swipeGesture)
+        touchHelper.attachToRecyclerView(binding.eventList)
     }
 }

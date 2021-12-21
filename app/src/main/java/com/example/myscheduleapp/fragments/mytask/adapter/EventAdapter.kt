@@ -48,16 +48,16 @@ class EventAdapter(
             notifyItemChanged(position)
         }
 
-        holder.viewB.setOnClickListener {
-            val db: AppDataBase = Room.databaseBuilder(app,
-                AppDataBase::class.java,
-                "NewEventData")
-                .allowMainThreadQueries()
-                .build()
-            db.newEventDao().delete(currentEvent)
-            newEventList.removeAt(position)
-            notifyItemRemoved(position)
-        }
+//        holder.viewB.setOnClickListener {
+//            val db: AppDataBase = Room.databaseBuilder(app,
+//                AppDataBase::class.java,
+//                "NewEventData")
+//                .allowMainThreadQueries()
+//                .build()
+//            db.newEventDao().delete(currentEvent)
+//            newEventList.removeAt(position)
+//            notifyItemRemoved(position)
+//        }
     }
 
     override fun getItemCount(): Int {
@@ -70,7 +70,7 @@ class EventAdapter(
         val hourCell: TextView = itemView.findViewById(R.id.hourCell)
         val hiddenContainer: LinearLayout = itemView.findViewById(R.id.hiddenContainer)
         val viewF: LinearLayout = itemView.findViewById(R.id.event_card)
-        val viewB: RelativeLayout = itemView.findViewById(R.id.delete_background)
+//        val viewB: FloatingActionButton = itemView.findViewById(R.id.delete)
     }
 
     fun removeItems(position: Int){
@@ -87,13 +87,13 @@ class EventAdapter(
 
     fun restoreItem(item: NewEventData, position: Int){
         newEventList.add(position, item)
-//        val db: AppDataBase = Room.databaseBuilder(
-//            app,
-//            AppDataBase::class.java,
-//            "NewEventData")
-//            .allowMainThreadQueries()
-//            .build()
-//        db.newEventDao().insert(newEventList)
-//        notifyItemInserted(position)
+        val db: AppDataBase = Room.databaseBuilder(
+            app,
+            AppDataBase::class.java,
+            "NewEventData")
+            .allowMainThreadQueries()
+            .build()
+        db.newEventDao().insert(newEventList)
+        notifyItemInserted(position)
     }
 }
