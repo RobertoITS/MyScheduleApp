@@ -23,7 +23,14 @@
             android:layout_weight="5"
             android:background="@color/white"/>
 
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:id="@+id/snack">
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </LinearLayout>
+
 
 
 </LinearLayout>

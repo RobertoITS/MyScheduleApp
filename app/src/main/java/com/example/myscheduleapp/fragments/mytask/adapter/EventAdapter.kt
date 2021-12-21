@@ -43,12 +43,12 @@ class EventAdapter(
         //VISIBILITY
         val isVisible: Boolean = currentEvent.visibility
         holder.hiddenContainer.visibility = if (isVisible) View.VISIBLE else View.GONE
-        holder.visibilityOnOff.setOnClickListener {
+        holder.viewF.setOnClickListener {
             currentEvent.visibility = !currentEvent.visibility
             notifyItemChanged(position)
         }
 
-        holder.delete.setOnClickListener {
+        holder.viewB.setOnClickListener {
             val db: AppDataBase = Room.databaseBuilder(app,
                 AppDataBase::class.java,
                 "NewEventData")
@@ -69,17 +69,31 @@ class EventAdapter(
         val dateCell: TextView = itemView.findViewById(R.id.dateCell)
         val hourCell: TextView = itemView.findViewById(R.id.hourCell)
         val hiddenContainer: LinearLayout = itemView.findViewById(R.id.hiddenContainer)
-        val visibilityOnOff: LinearLayout = itemView.findViewById(R.id.event_card)
-        val delete: RelativeLayout = itemView.findViewById(R.id.delete_background)
+        val viewF: LinearLayout = itemView.findViewById(R.id.event_card)
+        val viewB: RelativeLayout = itemView.findViewById(R.id.delete_background)
     }
 
     fun removeItems(position: Int){
+        val currentEvent = newEventList[position]
+        val db: AppDataBase = Room.databaseBuilder(app,
+            AppDataBase::class.java,
+            "NewEventData")
+            .allowMainThreadQueries()
+            .build()
+        db.newEventDao().delete(currentEvent)
         newEventList.removeAt(position)
         notifyItemRemoved(position)
     }
 
     fun restoreItem(item: NewEventData, position: Int){
         newEventList.add(position, item)
-        notifyItemInserted(position)
+//        val db: AppDataBase = Room.databaseBuilder(
+//            app,
+//            AppDataBase::class.java,
+//            "NewEventData")
+//            .allowMainThreadQueries()
+//            .build()
+//        db.newEventDao().insert(newEventList)
+//        notifyItemInserted(position)
     }
 }

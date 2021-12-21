@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myscheduleapp.fragments.mytask.adapter.EventAdapter
 
-class MyItemTouchHelperCallback(val callBackItemTouch: CallBackItemTouch) :
+class MyItemTouchHelperCallback(private val callBackItemTouch: CallBackItemTouch) :
     ItemTouchHelper.Callback() {
 
     override fun isLongPressDragEnabled(): Boolean {
@@ -54,7 +54,7 @@ class MyItemTouchHelperCallback(val callBackItemTouch: CallBackItemTouch) :
         if (actionState == ItemTouchHelper.ACTION_STATE_DRAG){
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
         } else {
-            val foregroundView: View = (viewHolder as EventAdapter.EventViewHolder).delete
+            val foregroundView: View = (viewHolder as EventAdapter.EventViewHolder).viewB
             getDefaultUIUtil().onDrawOver(c, recyclerView, foregroundView, dX, dY, actionState, isCurrentlyActive)
         }
     }
@@ -69,15 +69,15 @@ class MyItemTouchHelperCallback(val callBackItemTouch: CallBackItemTouch) :
         isCurrentlyActive: Boolean
     ) {
         if (actionState != ItemTouchHelper.ACTION_STATE_DRAG){
-            val foregroundView: View = (viewHolder as EventAdapter.EventViewHolder).visibilityOnOff
-            getDefaultUIUtil().onDrawOver(c, recyclerView, foregroundView, dX, dY, actionState, isCurrentlyActive)
+            val foregroundView: View = (viewHolder as EventAdapter.EventViewHolder).viewF
+            getDefaultUIUtil().onDraw(c, recyclerView, foregroundView, dX, dY, actionState, isCurrentlyActive)
         }
     }
 
     override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
-        val foregroundView: View = (viewHolder as EventAdapter.EventViewHolder).visibilityOnOff
+        val foregroundView: View = (viewHolder as EventAdapter.EventViewHolder).viewF
         foregroundView.setBackgroundColor(ContextCompat.getColor(
-            viewHolder.visibilityOnOff.context,
+            viewHolder.viewF.context,
             R.color.white))
         getDefaultUIUtil().clearView(foregroundView)
     }
@@ -85,7 +85,7 @@ class MyItemTouchHelperCallback(val callBackItemTouch: CallBackItemTouch) :
     override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
         super.onSelectedChanged(viewHolder, actionState)
         if (viewHolder != null){
-            val foregroundView: View = (viewHolder as EventAdapter.EventViewHolder).visibilityOnOff
+            val foregroundView: View = (viewHolder as EventAdapter.EventViewHolder).viewF
             if (actionState == ItemTouchHelper.ACTION_STATE_DRAG){
                 foregroundView.setBackgroundColor(Color.LTGRAY)
             }
