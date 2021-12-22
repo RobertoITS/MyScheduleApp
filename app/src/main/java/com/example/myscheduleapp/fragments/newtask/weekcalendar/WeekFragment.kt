@@ -91,6 +91,7 @@ class WeekFragment : Fragment(), CalendarAdapter.OnItemListener {
             getString(R.string.new_task) -> {
                 transition
                     ?.add(R.id.newEventFrag, EventFragment())
+                    ?.addToBackStack(null)
                     ?.commit()
                 binding.newEventBtn.text = getString(R.string.back_event)
             }

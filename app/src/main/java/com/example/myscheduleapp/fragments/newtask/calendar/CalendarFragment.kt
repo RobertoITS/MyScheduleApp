@@ -17,6 +17,7 @@ import com.example.myscheduleapp.Utils.daysInMonthArray
 import com.example.myscheduleapp.Utils.monthYearFromDate
 import com.example.myscheduleapp.Utils.selectedDate
 import com.example.myscheduleapp.databinding.FragmentCalendarBinding
+import com.example.myscheduleapp.fragments.newtask.NewTaskFragment
 import com.example.myscheduleapp.fragments.newtask.calendar.adapter.CalendarAdapter
 import com.example.myscheduleapp.fragments.newtask.weekcalendar.WeekFragment
 import java.time.LocalDate
@@ -92,8 +93,9 @@ class CalendarFragment : Fragment(), CalendarAdapter.OnItemListener {
                 R.anim.fade_in,
                 R.anim.fade_out
             )
-                ?.replace(R.id.calendarFrag, WeekFragment())
+                ?.hide(CalendarFragment())
+                ?.add(R.id.eventFrag, WeekFragment())
+                ?.addToBackStack(null)
                 ?.commit()
         }
-
 }

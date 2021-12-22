@@ -1,13 +1,13 @@
 <resources>
-    <string name="app_name">MyScheduleApp</string>
+    <string name="app_name">Mi agenda</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="my_task">Mis Tareas</string>
     <string name="new_task">Nueva Tarea</string>
     <string name="done_task">Tareas Realizadas</string>
     <string name="my_schedule">Mi Agenda</string>
-    <string name="back"><![CDATA[<-]]></string>
-    <string name="forward"><![CDATA[->]]></string>
+    <string name="back"><![CDATA[<]]></string>
+    <string name="forward"><![CDATA[>]]></string>
     <string name="back_event">Volver</string>
     <string name="delete_entry">Borrar entrada</string>
 </resources>

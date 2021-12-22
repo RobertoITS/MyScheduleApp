@@ -16,4 +16,5 @@
     <color name="gray">#ACA8A7</color>
     <color name="ok_background">#048300</color>
     <color name="delete_background">#f44336</color>
+    <color name="principal">#99D9EA</color>
 </resources>

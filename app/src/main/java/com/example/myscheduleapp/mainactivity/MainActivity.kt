@@ -8,6 +8,9 @@ import com.example.myscheduleapp.databinding.ActivityMainBinding
 import com.example.myscheduleapp.fragments.donetask.DoneTaskFragment
 import com.example.myscheduleapp.fragments.mytask.MyTaskFragment
 import com.example.myscheduleapp.fragments.newtask.NewTaskFragment
+import com.example.myscheduleapp.fragments.newtask.calendar.CalendarFragment
+import com.example.myscheduleapp.fragments.newtask.weekcalendar.WeekFragment
+import com.example.myscheduleapp.fragments.newtask.weekcalendar.newevent.EventFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,76 +24,75 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        addFrag(home)
+        //The idea is next: using hide/show, we can accelerate the transition between fragments
+
+        addFragment(new)
+        hideFragment(new)
+
+        addFragment(done)
+        hideFragment(done)
+
+        addFragment(home)
 
         binding.bottomNav.setItemSelected(R.id.mytask)
 
         binding.bottomNav.setOnItemSelectedListener {
             when (it) {
                 R.id.mytask -> {
-                    openFragment(home)
+                    if (new.isVisible) hideFragment(new)
+                    else hideFragment(done)
+                    showFragment(home)
                 }
                 R.id.newtask -> {
-                    openFragment(new)
+                    if (done.isVisible) hideFragment(done)
+                    else hideFragment(home)
+                    showFragment(new)
                 }
                 R.id.donetask -> {
-                    openFragment(done)
+                    if (home.isVisible) hideFragment(home)
+                    else hideFragment(new)
+                    showFragment(done)
                 }
             }
         }
     }
 
-    private fun openFragment(fragment: Fragment) {
-        val currentFrag = supportFragmentManager.findFragmentById(R.id.frag)
-        val transition = supportFragmentManager.beginTransaction()
-        if (fragment.isAdded){
-            transition.setCustomAnimations(
-                R.anim.fade_in,
-                R.anim.fade_out,
-                R.anim.fade_in,
-                R.anim.fade_out
-            )
-                .hide(currentFrag!!)
-                .show(fragment)
-                .commit()
-        } else {
-            transition
-                .setCustomAnimations(
-                    R.anim.fade_in,
-                    R.anim.fade_out,
-                    R.anim.fade_in,
-                    R.anim.fade_out
-                )
-                .hide(currentFrag!!)
-                .add(R.id.frag, fragment)
-                .commit()
-        }
+    //First we add all the fragments
+    private fun addFragment (f1: Fragment){
+        val t = supportFragmentManager.beginTransaction()
+        t.setCustomAnimations(
+            R.anim.fade_in,
+            R.anim.fade_out,
+            R.anim.fade_in,
+            R.anim.fade_out
+        )
+        t.add(R.id.frag, f1)
+        t.commit()
     }
 
-    private fun addFrag(fragment: Fragment) {
-        val currentFrag = supportFragmentManager.findFragmentById(R.id.frag)
-        val transition = supportFragmentManager.beginTransaction()
-        if (currentFrag == null) {
-            transition
-                .setCustomAnimations(
-                    R.anim.fade_in,
-                    R.anim.fade_out,
-                    R.anim.fade_in,
-                    R.anim.fade_out
-                )
-                .add(R.id.frag, fragment)
-                .commit()
-        } else {
-            transition
-                .setCustomAnimations(
-                    R.anim.fade_in,
-                    R.anim.fade_out,
-                    R.anim.fade_in,
-                    R.anim.fade_out
-                )
-                .hide(currentFrag)
-                .add(R.id.frag, fragment)
-                .commit()
-        }
+    //Then, we hide them
+    private fun hideFragment (f1: Fragment){
+        val t = supportFragmentManager.beginTransaction()
+        t.setCustomAnimations(
+            R.anim.fade_in,
+            R.anim.fade_out,
+            R.anim.fade_in,
+            R.anim.fade_out
+        )
+        t.hide(f1)
+        t.commit()
+    }
+
+    //At last we vary between them
+    private fun showFragment (f1: Fragment){
+        val t = supportFragmentManager.beginTransaction()
+        t.setCustomAnimations(
+            R.anim.fade_in,
+            R.anim.fade_out,
+            R.anim.fade_in,
+            R.anim.fade_out
+        )
+        t.show(f1)
+        t.commit()
     }
 }
