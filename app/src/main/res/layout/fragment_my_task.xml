@@ -29,8 +29,7 @@
             android:id="@+id/snack">
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
     </LinearLayout>
-
-
 
 </LinearLayout>
