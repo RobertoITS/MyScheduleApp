@@ -28,7 +28,6 @@ class NewTaskFragment : Fragment() {
             R.anim.fade_out
         )
             ?.add(R.id.calendarFrag, CalendarFragment())
-            ?.addToBackStack(null)
             ?.commit()
 
         return binding.root

@@ -4,9 +4,9 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-//Using Room
-//We create the entity
-//Entity == Object
+/**Using Room
+We create the entity
+Entity == Object**/
 @Entity
 data class NewEventData(
     //The primaryKey, it had the option of auto generate

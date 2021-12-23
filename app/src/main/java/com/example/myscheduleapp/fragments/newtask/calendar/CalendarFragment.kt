@@ -88,13 +88,13 @@ class CalendarFragment : Fragment(), CalendarAdapter.OnItemListener {
         private fun weeklyAction() {
             val transaction = fragmentManager?.beginTransaction()
             transaction?.setCustomAnimations(
-                R.anim.fade_in,
-                R.anim.fade_out,
-                R.anim.fade_in,
-                R.anim.fade_out
+                R.anim.frag_down_to_up,
+                R.anim.frag_up_to_down,
+                R.anim.frag_down_to_up,
+                R.anim.frag_up_to_down
             )
-                ?.hide(CalendarFragment())
-                ?.add(R.id.eventFrag, WeekFragment())
+                ?.add(R.id.event_frag_from_calendar, WeekFragment())
+                    //This line allows to close the fragment with the back pressed
                 ?.addToBackStack(null)
                 ?.commit()
         }

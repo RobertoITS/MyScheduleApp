@@ -51,6 +51,7 @@ class MyTaskFragment : Fragment() {
         eventAdapter = EventAdapter(newEvent, requireContext())
         binding.eventList.adapter = eventAdapter
 
+        //This is from the RecyclerViewSwipeDecorator library
         val swipeGesture = object : SwipeGesture (requireContext()) {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {

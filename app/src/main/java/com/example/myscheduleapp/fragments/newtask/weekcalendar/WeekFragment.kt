@@ -85,6 +85,8 @@ class WeekFragment : Fragment(), CalendarAdapter.OnItemListener {
         transition
             ?.setCustomAnimations(
                 R.anim.frag_down_to_up,
+                R.anim.frag_up_to_down,
+                R.anim.frag_down_to_up,
                 R.anim.frag_up_to_down
             )
         when (binding.newEventBtn.text) {

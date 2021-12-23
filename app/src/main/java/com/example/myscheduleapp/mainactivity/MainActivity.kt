@@ -24,7 +24,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //The idea is next: using hide/show, we can accelerate the transition between fragments
+        /**The idea is next: using hide/show,
+        we can accelerate the transition between
+        fragments**/
 
         addFragment(new)
         hideFragment(new)

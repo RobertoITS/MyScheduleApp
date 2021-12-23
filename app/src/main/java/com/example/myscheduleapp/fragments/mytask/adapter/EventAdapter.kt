@@ -15,8 +15,9 @@ import com.example.myscheduleapp.database.AppDataBase
 import com.example.myscheduleapp.database.data.NewEventData
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-//adaptador para la lista de eventos nuevos
-//Agregamos la variable para tomar el contexto desde la app, y asi modificar la BD
+/**Adapter for the list of new events.
+ Add the variable to take the context
+ from the app, and thus modify the DB**/
 class EventAdapter(
     private val newEventList: ArrayList<NewEventData>,
     var app: Context
@@ -47,17 +48,6 @@ class EventAdapter(
             currentEvent.visibility = !currentEvent.visibility
             notifyItemChanged(position)
         }
-
-//        holder.viewB.setOnClickListener {
-//            val db: AppDataBase = Room.databaseBuilder(app,
-//                AppDataBase::class.java,
-//                "NewEventData")
-//                .allowMainThreadQueries()
-//                .build()
-//            db.newEventDao().delete(currentEvent)
-//            newEventList.removeAt(position)
-//            notifyItemRemoved(position)
-//        }
     }
 
     override fun getItemCount(): Int {
@@ -70,9 +60,9 @@ class EventAdapter(
         val hourCell: TextView = itemView.findViewById(R.id.hourCell)
         val hiddenContainer: LinearLayout = itemView.findViewById(R.id.hiddenContainer)
         val viewF: LinearLayout = itemView.findViewById(R.id.event_card)
-//        val viewB: FloatingActionButton = itemView.findViewById(R.id.delete)
     }
 
+    //Delete the entry
     fun removeItems(position: Int){
         val currentEvent = newEventList[position]
         val db: AppDataBase = Room.databaseBuilder(app,
@@ -85,6 +75,7 @@ class EventAdapter(
         notifyItemRemoved(position)
     }
 
+    //Restore the entry deleted
     fun restoreItem(item: NewEventData, position: Int){
         newEventList.add(position, item)
         val db: AppDataBase = Room.databaseBuilder(
