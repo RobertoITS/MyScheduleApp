@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -31,6 +32,11 @@ class MyTaskFragment : Fragment() {
         val llm = LinearLayoutManager(context)
         llm.orientation = LinearLayoutManager.VERTICAL
         binding.eventList.layoutManager = llm
+
+        /* If we want to add line divider in our list, this will help:
+        val dividerItemDecoration = DividerItemDecoration(context, llm.orientation)
+        binding.eventList.addItemDecoration(dividerItemDecoration)*/
+
         setEventAdapter()
 
         return binding.root

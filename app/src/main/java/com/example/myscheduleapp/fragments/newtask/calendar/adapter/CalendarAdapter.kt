@@ -1,5 +1,6 @@
 package com.example.myscheduleapp.fragments.newtask.calendar.adapter
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Build
 import android.view.LayoutInflater
@@ -32,6 +33,7 @@ class CalendarAdapter(
         return CalendarViewHolder(view, onItemListener, days)
     }
 
+    @SuppressLint("ResourceAsColor")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: CalendarViewHolder, position: Int) {
         val date: LocalDate? = days?.get(position)
@@ -41,7 +43,7 @@ class CalendarAdapter(
         else{
             holder.dayOfMonth.text = date.dayOfMonth.toString()
             if (date == selectedDate){
-                holder.parentView.setBackgroundColor(Color.LTGRAY)
+                holder.parentView.setBackgroundColor(R.color.newTask)
             }
         }
 

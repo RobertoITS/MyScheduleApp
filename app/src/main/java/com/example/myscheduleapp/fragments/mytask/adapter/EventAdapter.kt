@@ -63,6 +63,7 @@ class EventAdapter(
     }
 
     //Delete the entry
+    @SuppressLint("NotifyDataSetChanged")
     fun removeItems(position: Int){
         val currentEvent = newEventList[position]
         val db: AppDataBase = Room.databaseBuilder(app,
@@ -71,8 +72,10 @@ class EventAdapter(
             .allowMainThreadQueries()
             .build()
         db.newEventDao().delete(currentEvent)
-        newEventList.removeAt(position)
-        notifyItemRemoved(position)
+        newEventList.removeAt(position)  //Remove the item from the db
+        notifyItemRemoved(position)  //Then, notify to the adapter that the item as been delete:
+        notifyItemRangeChanged(position, newEventList.size)
+        notifyDataSetChanged()
     }
 
     //Restore the entry deleted

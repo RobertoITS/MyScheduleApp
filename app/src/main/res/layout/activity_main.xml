@@ -24,6 +24,6 @@
         app:cnb_menuResource="@menu/bottom_nav_menu"
         android:background="#ffffff"
         android:elevation="16dp"
-        android:padding="8dp"/>
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
